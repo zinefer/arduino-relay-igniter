@@ -31,6 +31,7 @@ void setup() {
   for (i = 0; i < CANNONS; i++) {
     pinMode(relays[i], OUTPUT);
     digitalWrite(buttons[i], HIGH);
+    digitalWrite(relays[i], HIGH);
   }
 }
 
@@ -40,7 +41,7 @@ void loop() {
   {
     if ( digitalRead(buttons[i]) == LOW ) {
       if ( timeFired[i] == 0 ) {
-        timeFired[i] = curTime; 
+        timeFired[i] = curTime;
       } else {
         overStimulation++;
       }
@@ -50,10 +51,10 @@ void loop() {
     {
      int fireAt = timeFired[i] + modes[MODE][i];
      if (curTime >= (fireAt+HOT_TIME)) {
-        digitalWrite(relays[i], LOW);
+        digitalWrite(relays[i], HIGH);
         timeFired[i] = 0;
       } else if ( curTime >= fireAt ) {
-        digitalWrite(relays[i], HIGH);
+        digitalWrite(relays[i], LOW);
       }
     }
   }
